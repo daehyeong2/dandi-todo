@@ -3,6 +3,8 @@ package com.todo.todo.controller;
 import com.todo.todo.dto.CreateToDoReq;
 import com.todo.todo.dto.CreateToDoRes;
 import com.todo.todo.dto.FindAllToDoRes;
+import com.todo.todo.dto.FindByIdToDoReq;
+import com.todo.todo.dto.FindByIdToDoRes;
 import com.todo.todo.dto.ToggleToDoReq;
 import com.todo.todo.dto.ToggleToDoRes;
 import com.todo.todo.dto.UpdateToDoReq;
@@ -39,5 +41,10 @@ public class ToDoController {
   @PostMapping("/todos/toggle")
   public ResponseEntity<ToggleToDoRes> toggleToDo(@RequestBody ToggleToDoReq toggleToDoReq) {
     return toDoService.toggleToDo(toggleToDoReq);
+  }
+
+  @GetMapping("/todos/findById")
+  public ResponseEntity<FindByIdToDoRes> findById(@RequestBody FindByIdToDoReq findByIdToDoReq) {
+    return toDoService.findById(findByIdToDoReq);
   }
 }

@@ -4,6 +4,8 @@ import com.todo.todo.domain.ToDo;
 import com.todo.todo.dto.CreateToDoReq;
 import com.todo.todo.dto.CreateToDoRes;
 import com.todo.todo.dto.FindAllToDoRes;
+import com.todo.todo.dto.FindByIdToDoReq;
+import com.todo.todo.dto.FindByIdToDoRes;
 import com.todo.todo.dto.ToggleToDoReq;
 import com.todo.todo.dto.ToggleToDoRes;
 import com.todo.todo.dto.UpdateToDoReq;
@@ -40,8 +42,12 @@ public class ToDoService {
     ), HttpStatus.CREATED);
   }
 
-  public Optional<ToDo> findById(Long id) {
-    return toDoRepository.findById(id);
+  public ResponseEntity<FindByIdToDoRes> findById(FindByIdToDoReq findByIdToDoReq) {
+    if(findByIdToDoReq.getId() == null) return new ResponseEntity<>(new FindByIdToDoRes(false, null), HttpStatus.BAD_REQUEST);
+    Optional<ToDo> toDoRes = toDoRepository.findById(findByIdToDoReq.getId());
+    if(toDoRes.isEmpty()) return new ResponseEntity<>(new FindByIdToDoRes(false, null), HttpStatus.NOT_FOUND);
+    ToDo toDo = toDoRes.get();
+    return new ResponseEntity<>(new FindByIdToDoRes(true, toDo), HttpStatus.OK);
   }
 
   public ResponseEntity<UpdateToDoRes> updateToDo(UpdateToDoReq updateToDoReq) {
