@@ -3,6 +3,7 @@ package com.todo.todo.service;
 import com.todo.todo.domain.ToDo;
 import com.todo.todo.dto.CreateToDoReq;
 import com.todo.todo.dto.CreateToDoRes;
+import com.todo.todo.dto.DeleteAllToDoRes;
 import com.todo.todo.dto.DeleteToDoReq;
 import com.todo.todo.dto.DeleteToDoRes;
 import com.todo.todo.dto.FindAllToDoRes;
@@ -88,5 +89,10 @@ public class ToDoService {
     if(!isExist) return new ResponseEntity<>(new DeleteToDoRes(false), HttpStatus.NOT_FOUND);
     toDoRepository.deleteById(deleteToDoReq.getId());
     return new ResponseEntity<>(new DeleteToDoRes(true), HttpStatus.OK);
+  }
+
+  public ResponseEntity<DeleteAllToDoRes> deleteAllToDo(){
+    toDoRepository.deleteAll();
+    return new ResponseEntity<>(new DeleteAllToDoRes(true), HttpStatus.OK);
   }
 }

@@ -2,6 +2,7 @@ package com.todo.todo.controller;
 
 import com.todo.todo.dto.CreateToDoReq;
 import com.todo.todo.dto.CreateToDoRes;
+import com.todo.todo.dto.DeleteAllToDoRes;
 import com.todo.todo.dto.DeleteToDoReq;
 import com.todo.todo.dto.DeleteToDoRes;
 import com.todo.todo.dto.FindAllToDoRes;
@@ -54,5 +55,10 @@ public class ToDoController {
   @GetMapping("/todos/findById")
   public ResponseEntity<FindByIdToDoRes> findById(@RequestBody FindByIdToDoReq findByIdToDoReq) {
     return toDoService.findById(findByIdToDoReq);
+  }
+
+  @DeleteMapping("/todos/all")
+  public ResponseEntity<DeleteAllToDoRes> deleteAllToDo() {
+    return toDoService.deleteAllToDo();
   }
 }
